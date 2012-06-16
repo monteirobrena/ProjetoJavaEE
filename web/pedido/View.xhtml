@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPedidoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPedidoLabel_id}"/>
+                    <h:outputText value="#{pedidoController.selected.id}" />
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Data compra: "/>
+                    <h:outputText value="#{pedidoController.selected.dataCompra}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Cliente: "/>
+                    <h:outputText value="#{pedidoController.selected.cliente}" />
+                </h:panelGrid>
+                <h:dataTable value="#{pedidoController.selected.itensPedidos}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Item pedido"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Quantidade produto"/>
+                        </f:facet>
+                        <h:outputText value="#{item.quantidadeProduto}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Preço produto"/>
+                        </f:facet>
+                        <h:outputText value="#{item.precoProduto}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Produto"/>
+                        </f:facet>
+                        <h:outputText value="#{item.produto.nome}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Pedido"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pedido}"/>
+                    </h:column>
+                </h:dataTable>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Total pedido: "/>
+                    <h:outputText value="#{pedidoController.valorTotalPedido}" />
+                </h:panelGrid>
+                <a href="http://localhost:8080/WebServiceControleVendas/WebServiceControleVendas?Tester">Total pedido obtido via WebService.</a>
+                <br /><br />
+                <h:commandLink action="#{pedidoController.destroyAndView}" value="#{bundle.ViewPedidoDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewPedidoEditLink}"/>
+                <br />
+                <h:commandLink action="#{pedidoController.prepareCreate}" value="#{bundle.ViewPedidoCreateLink}" />
+                <br />
+                <h:commandLink action="#{pedidoController.prepareList}" value="#{bundle.ViewPedidoShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewPedidoIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

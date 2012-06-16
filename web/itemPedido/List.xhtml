@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListItemPedidoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListItemPedidoEmpty}" rendered="#{itemPedidoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{itemPedidoController.items.rowCount > 0}">
+                    <h:outputText value="#{itemPedidoController.pagination.pageFirstItem + 1}..#{itemPedidoController.pagination.pageLastItem + 1}/#{itemPedidoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{itemPedidoController.previous}" value="#{bundle.Previous} #{itemPedidoController.pagination.pageSize}" rendered="#{itemPedidoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{itemPedidoController.next}" value="#{bundle.Next} #{itemPedidoController.pagination.pageSize}" rendered="#{itemPedidoController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{itemPedidoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemPedidoTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Quantidade produto"/>
+                            </f:facet>
+                            <h:outputText value="#{item.quantidadeProduto}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Preço produto"/>
+                            </f:facet>
+                            <h:outputText value="#{item.precoProduto}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Produto"/>
+                            </f:facet>
+                            <h:outputText value="#{item.produto.nome}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Pedido"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pedido.toString()}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{itemPedidoController.prepareView}" value="#{bundle.ListItemPedidoViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{itemPedidoController.prepareEdit}" value="#{bundle.ListItemPedidoEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{itemPedidoController.destroy}" value="#{bundle.ListItemPedidoDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{itemPedidoController.prepareCreate}" value="#{bundle.ListItemPedidoCreateLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ListItemPedidoIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

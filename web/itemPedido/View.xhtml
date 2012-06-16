@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewItemPedidoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewItemPedidoLabel_id}"/>
+                    <h:outputText value="#{itemPedidoController.selected.id}" title="#{bundle.ViewItemPedidoTitle_id}"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Preço produto: " for="precoProduto" />
+                    <h:outputText id="precoProduto" value="#{itemPedidoController.selected.precoProduto}" />
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Quantidade produto: " for="quantidadeProduto" />
+                    <h:outputText id="quantidadeProduto" value="#{itemPedidoController.selected.quantidadeProduto}" />
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Produto: " for="produto" />
+                    <h:outputText id="produto" value="#{itemPedidoController.selected.produto.nome}" />
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Pedido: " for="pedido" />
+                    <h:outputText id="pedido" value="#{itemPedidoController.selected.pedido.toString()}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{itemPedidoController.destroyAndView}" value="#{bundle.ViewItemPedidoDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewItemPedidoEditLink}"/>
+                <br />
+                <h:commandLink action="#{itemPedidoController.prepareCreate}" value="#{bundle.ViewItemPedidoCreateLink}" />
+                <br />
+                <h:commandLink action="#{itemPedidoController.prepareList}" value="#{bundle.ViewItemPedidoShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewItemPedidoIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

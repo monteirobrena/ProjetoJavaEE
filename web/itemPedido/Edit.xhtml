@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditItemPedidoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Preço produto" for="precoProduto" />
+                    <h:inputText id="precoProduto" value="#{itemPedidoController.selected.precoProduto}" title="Preço produto" />
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Quantidade produto" for="quantidadeProduto" />
+                    <h:inputText id="quantidadeProduto" value="#{itemPedidoController.selected.quantidadeProduto}" title="Quantidade produto" />
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Produto" for="produto" />
+                    <h:selectOneMenu id="produto" value="#{itemPedidoController.selected.produto}">
+                        <f:selectItems value="#{produtoController.itemsAvailableSelectOne}" />
+                    </h:selectOneMenu> 
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Pedido" for="pedido" />
+                    <h:selectOneMenu id="pedido" value="#{itemPedidoController.selected.pedido}">
+                        <f:selectItems value="#{pedidoController.itemsAvailableSelectOne}" />
+                    </h:selectOneMenu> 
+                </h:panelGrid>
+                <h:commandLink action="#{itemPedidoController.update}" value="#{bundle.EditItemPedidoSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditItemPedidoViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{itemPedidoController.prepareList}" value="#{bundle.EditItemPedidoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditItemPedidoIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
